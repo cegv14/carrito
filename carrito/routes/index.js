@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 //Creamos una ruta POST
 router.post('/crear_orden', function(req, res, next) {
   //Simulamos una orden
-  var orden = {producto:'Calabacin', monto:3};
+  var orden = {producto:'Calabacin', monto:0.1};
 
   //Creamos el sql
   var stmt = `INSERT INTO public.ordenes(
