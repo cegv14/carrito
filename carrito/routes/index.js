@@ -51,20 +51,24 @@ router.post('/crear_orden', function(req, res, next) {
 
 
 router.post('/webhook', function(req, res, next) {
-  console.log(req.body.completed)
+  console.log(req.body)
+
+  //COMPROBAMOS SI LLEGO UN PAGO
+  if(req.body.nu_operation){
+    //ACTUALIZAR DATOS DE LA BASE DE DATOS
+    var sql = `UPDATE public.ordenes
+    SET pagado=`+req.body.completed+`, referencia='`+req.body.nu_referencia+`'
+    WHERE id=`+req.body.nu_operation;
+    sql.query(stmt, async (err, result) => {
+      if(err){
+        console.log(err)
+      }
+      if(req.body.completed){
+        console.log("GRACIAS POR SU COMPRA.")
+      }
+    });
+  }
   
-  //ACTUALIZAR DATOS DE LA BASE DE DATOS
-  var sql = `UPDATE public.ordenes
-	SET pagado=`+req.body.completed+`, referencia='`+req.body.nu_referencia+`'
-	WHERE id=`+req.body.nu_operation;
-  sql.query(stmt, async (err, result) => {
-    if(err){
-      console.log(err)
-    }
-    if(req.body.completed){
-      console.log("GRACIAS POR SU COMPRA.")
-    }
-  });
   
   //RETORNAR RESPUESTA
   res.json({"result":true})
