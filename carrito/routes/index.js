@@ -65,12 +65,15 @@ router.post('/webhook', function(req, res, next) {
       }
       if(req.body.completed){
         console.log("GRACIAS POR SU COMPRA.")
+      }else{
+        console.log("No se ha completado la compra")
       }
+      //RETORNAR RESPUESTA
+      res.json({"result":true})
     });
   }
   
   
-  //RETORNAR RESPUESTA
-  res.json({"result":true})
+  
 });
 module.exports = router;
