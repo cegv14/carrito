@@ -56,7 +56,7 @@ router.post('/webhook', function(req, res, next) {
   //COMPROBAMOS SI LLEGO UN PAGO
   if(req.body.nu_operation){
     //ACTUALIZAR DATOS DE LA BASE DE DATOS
-    var sql = `UPDATE public.ordenes
+    var stmt = `UPDATE public.ordenes
     SET pagado=`+req.body.completed+`, referencia='`+req.body.nu_referencia+`'
     WHERE id=`+req.body.nu_operation;
     sql.query(stmt, async (err, result) => {
